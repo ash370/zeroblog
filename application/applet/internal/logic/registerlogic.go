@@ -2,9 +2,9 @@ package logic
 
 import (
 	"context"
-	"errors"
 	"strings"
 
+	"zeroblog/application/applet/internal/code"
 	"zeroblog/application/applet/internal/svc"
 	"zeroblog/application/applet/internal/types"
 	"zeroblog/application/user/rpc/user"
@@ -39,19 +39,19 @@ func (l *RegisterLogic) Register(req *types.RegisterRequest) (*types.RegisterRes
 
 	req.Mobile = strings.TrimSpace(req.Mobile)
 	if len(req.Mobile) == 0 {
-		return nil, errors.New("error moblie") //错误码：手机号不能为空
+		return nil, code.RegisterMobileEmpty //错误码：手机号不能为空
 	}
 
 	req.Password = strings.TrimSpace(req.Password)
 	if len(req.Password) == 0 {
-		return nil, errors.New("error passwd") //错误码：密码不能为空
+		return nil, code.RegisterPasswdEmpty //错误码：密码不能为空
 	} else {
 		req.Password = encrypt.EncPassword(req.Password) //密码需要加密存储
 	}
 
 	req.VerificationCode = strings.TrimSpace(req.VerificationCode)
 	if len(req.VerificationCode) == 0 {
-		return nil, errors.New("error verification code") //错误码：短信验证码不能为空
+		return nil, code.VerificationCodeEmpty //错误码：短信验证码不能为空
 	}
 	err := checkVerificationCode(l.svcCtx.BizRedis, req.Mobile, req.VerificationCode)
 	if err != nil { //验证码错误
@@ -73,7 +73,7 @@ func (l *RegisterLogic) Register(req *types.RegisterRequest) (*types.RegisterRes
 		return nil, err
 	}
 	if u != nil && u.UserId > 0 {
-		return nil, errors.New("mobile registried") //错误码：手机号已注册
+		return nil, code.MobileHasRegistered //错误码：手机号已注册
 	}
 
 	regRet, err := l.svcCtx.UserRPC.Register(l.ctx, &user.RegisterRequest{ //进行注册
@@ -111,16 +111,16 @@ func (l *RegisterLogic) Register(req *types.RegisterRequest) (*types.RegisterRes
 }
 
 // 验证码校验
-func checkVerificationCode(rds *redis.Redis, moblie, code string) error {
+func checkVerificationCode(rds *redis.Redis, moblie, codes string) error {
 	cacheCode, err := getActivationCache(moblie, rds)
 	if err != nil {
 		return err
 	}
 	if cacheCode == "" {
-		return errors.New("verification code expired")
+		return code.VerificationCodeExpired
 	}
-	if cacheCode != code {
-		return errors.New("verification code failed")
+	if cacheCode != codes {
+		return code.VerificationCodeFailed
 	}
 
 	return nil

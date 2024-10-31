@@ -2,6 +2,7 @@ package interceptors
 
 import (
 	"context"
+	"zeroblog/pkg/xcode"
 
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
@@ -13,8 +14,8 @@ func ClientErrorInterceptor() grpc.UnaryClientInterceptor {
 		err := invoker(ctx, method, req, reply, cc, opts...)
 		if err != nil {
 			grpcStatus, _ := status.FromError(err)
-			//xc := xcode.GrpcStatusToXCode(grpcStatus)
-			err = errors.WithMessage(errors.New("error token"), grpcStatus.Message())
+			xc := xcode.GrpcStatusToXCode(grpcStatus)
+			err = errors.WithMessage(xc, grpcStatus.Message())
 		}
 
 		return err

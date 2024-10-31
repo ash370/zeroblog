@@ -2,9 +2,9 @@ package logic
 
 import (
 	"context"
-	"errors"
 	"time"
 
+	"zeroblog/application/user/rpc/internal/code"
 	"zeroblog/application/user/rpc/internal/model"
 	"zeroblog/application/user/rpc/internal/svc"
 	"zeroblog/application/user/rpc/service"
@@ -29,7 +29,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 func (l *RegisterLogic) Register(in *service.RegisterRequest) (*service.RegisterResponse, error) {
 	// 当注册名字为空的时候，返回业务自定义错误码
 	if len(in.Username) == 0 {
-		return nil, errors.New("error name") //错误码：注册名不能为空
+		return nil, code.RegisterNameEmpty //错误码：注册名不能为空
 	}
 
 	ret, err := l.svcCtx.UserModel.Insert(l.ctx, &model.User{
