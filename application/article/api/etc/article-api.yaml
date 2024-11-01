@@ -14,7 +14,7 @@ ArticleRPC:
     Key: article.rpc
   NonBlock: true
 Oss:
-  Endpoint: oss-cn-shanghai.aliyuncs.com
-  AccessKeyId: LTAI5tDBFnd3rQAXW1DoRbY2
-  AccessKeySecret: pIvyTfQCvxQ9HAcf8GZ8YDNkF5yZZz
-  BucketName: zeroblog-article
+  Endpoint: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessKeyId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessKeySecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  BucketName: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
