@@ -1,0 +1,20 @@
+Name: article-api
+Host: 0.0.0.0
+Port: 9999
+Auth:
+  AccessSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessExpire: 604800
+  RefreshSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  RefreshExpire: 2592000
+  RefreshAfter: 604800
+ArticleRPC:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: article.rpc
+  NonBlock: true
+Oss:
+  Endpoint: oss-cn-shanghai.aliyuncs.com
+  AccessKeyId: LTAI5tDBFnd3rQAXW1DoRbY2
+  AccessKeySecret: pIvyTfQCvxQ9HAcf8GZ8YDNkF5yZZz
+  BucketName: zeroblog-article
