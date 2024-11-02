@@ -16,6 +16,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	conn := sqlx.NewMysql(c.DataSource)
 	return &ServiceContext{
 		Config:       c,
-		ArticleModel: model.NewArticleModel(conn),
+		ArticleModel: model.NewArticleModel(conn, c.CacheRedis),
 	}
 }
