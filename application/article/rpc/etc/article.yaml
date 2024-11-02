@@ -5,3 +5,7 @@ Etcd:
   - 127.0.0.1:2379
   Key: article.rpc
 DataSource: root:123456@tcp(127.0.0.1:3306)/zeroblog_article?parseTime=true&loc=Local
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass:
+    Type: node
