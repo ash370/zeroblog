@@ -2,7 +2,7 @@ create database zeroblog_article;
 use zeroblog_article;
 
 CREATE TABLE `article` (
-    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
     `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
     `content` text COLLATE utf8_unicode_ci NOT NULL COMMENT '内容',
     `cover` varchar(255) NOT NULL DEFAULT '' COMMENT '封面',
